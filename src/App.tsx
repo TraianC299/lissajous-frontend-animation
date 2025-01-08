@@ -19,7 +19,14 @@ function App() {
         <ControlPanel phi={phase} form={form} changeForm={(value, key) => setForm({ ...form, [key]: value })} />
         <div className='bg-slate-100 flex-1'>
 
-          <LissajousCanvas setPhase={setPhase} A={form.amplitudeX} B={form.amplitudeY} a={form.frequencyX} b={form.frequencyY} phase={phase} animate={true} />
+          <LissajousCanvas 
+          setPhase={setPhase} 
+          amplitudeX={form.amplitudeX}
+          amplitudeY={form.amplitudeY}
+          frequencyX={form.frequencyX}
+          frequencyY={form.frequencyY}
+          phase={phase} 
+          animate={true} />
         </div>
       </div>
     </>

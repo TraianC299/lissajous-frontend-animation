@@ -2,15 +2,15 @@ import React, { useEffect, useRef } from 'react';
 
 let animationFrameId: any;
 type LissajousCanvasProps = {
-    A: number;
-    B: number;
-    a: number;
-    b: number;
+    frequencyX: number;
+    frequencyY: number;
+    amplitudeX: number;
+    amplitudeY: number;
     phase: number;
     setPhase: React.Dispatch<React.SetStateAction<number>>;
     animate: boolean;
 };
-const LissajousCanvas = ({ A, B, a, b, phase, setPhase, animate }: LissajousCanvasProps) => {
+const LissajousCanvas = ({ frequencyX, frequencyY, amplitudeX, amplitudeY, phase, setPhase, animate }: LissajousCanvasProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const drawFigure = () => {
@@ -22,8 +22,8 @@ const LissajousCanvas = ({ A, B, a, b, phase, setPhase, animate }: LissajousCanv
         ctx.beginPath();
 
         for (let t = 0; t <= 2 * Math.PI; t += 0.01) {
-            const x = A * Math.sin(a * t + phase) + canvas.width / 2;
-            const y = B * Math.sin(b * t) + canvas.height / 2;
+            const x = amplitudeX * Math.sin(frequencyX * t + phase) + canvas.width / 2;
+            const y = amplitudeY * Math.sin(frequencyY * t) + canvas.height / 2;
             ctx.lineTo(x, y);
         }
 
@@ -44,9 +44,9 @@ const LissajousCanvas = ({ A, B, a, b, phase, setPhase, animate }: LissajousCanv
             animationFrameId = requestAnimationFrame(animateFigure);
         }
         return () => cancelAnimationFrame(animationFrameId);
-    }, [A, B, a, b, phase, animate]);
+    }, [frequencyX, frequencyY, amplitudeX, amplitudeY, phase, animate]);
 
-    return <canvas ref={canvasRef} width={window.innerWidth - 256} height={window.innerHeight} style={{ border: '1px solid #ccc' }} />;
+    return <canvas ref={canvasRef} width={window.innerWidth - 256} height={window.innerHeight} />;
 };
 
 export default LissajousCanvas;
